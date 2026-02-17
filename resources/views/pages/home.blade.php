@@ -9,6 +9,8 @@
 
     @include('partials.home._hero-section')
 
+    @include('partials.home._hero-partners')
+
     @include('partials.home._cta-section')
 
     @include('partials.home._stats-section')

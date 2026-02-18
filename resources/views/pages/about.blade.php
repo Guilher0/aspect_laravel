@@ -1,245 +1,209 @@
+{{-- /resources/views/pages/about.blade.php --}}
+
 @extends('layouts.app')
 
-@section('title', 'Sobre Nós')
+@section('title', 'Sobre a NERD')
+
+@php
+    $values = [
+        [
+            'name' => 'Resiliência',
+            'description' =>
+                'Assim como superamos desafios na pandemia para fundar a NERD, acreditamos na importância de ser resiliente diante das adversidades. Cada obstáculo é uma oportunidade de crescimento.',
+        ],
+        [
+            'name' => 'Paixão pela Educação',
+            'description' =>
+                'A NERD nasceu do desejo de transformar a vida dos alunos. Nossa paixão pela educação nos motiva a oferecer sempre o melhor, acreditando no poder transformador do conhecimento.',
+        ],
+        [
+            'name' => 'Acolhimento',
+            'description' =>
+                'Desde os primeiros atendimentos nas casas dos alunos até a criação de um espaço próprio, o acolhimento sempre foi um valor central. Queremos que todos se sintam bem-vindos e apoiados em sua jornada educacional.',
+        ],
+        [
+            'name' => 'Inovação',
+            'description' =>
+                'A NERD começou com recursos simples, mas com muita criatividade e inovação. Valorizamos a capacidade de encontrar soluções inovadoras para melhorar continuamente nossos métodos de ensino.',
+        ],
+        [
+            'name' => 'Compromisso',
+            'description' =>
+                'Nosso compromisso com a educação é inabalável. Trabalhamos incansavelmente para garantir que cada aluno tenha acesso a um ensino de qualidade e possa alcançar seu pleno potencial.',
+        ],
+        [
+            'name' => 'Comunidade',
+            'description' =>
+                'Acreditamos que a educação é uma construção coletiva. Valorizamos a colaboração e o apoio mútuo, criando uma comunidade forte e unida em torno do aprendizado.',
+        ],
+    ];
+
+    $team = [
+        [
+            'name' => 'Isabela Brandão',
+            'role' => 'CEO',
+            'config' => '',
+            'imageUrl' => 'images/Isabela.jpg',
+        ],
+        [
+            'name' => 'Amanda Alves',
+            'role' => 'CEO',
+            'config' => 'object-top',
+            'imageUrl' => 'images/Amanda.jpg',
+        ],
+    ];
+@endphp
 
 @section('content')
 
-@php
-// Dados que viriam do Controller
-$stats = [
-    ['label' => 'Transactions every 24 hours', 'value' => '44 million'],
-    ['label' => 'Assets under holding', 'value' => '$119 trillion'],
-    ['label' => 'New users annually', 'value' => '46,000'],
-];
-
-$values = [
-    ['name' => 'Be world-class', 'description' => 'Aut illo quae. Ut et harum ea animi natus. Culpa maiores et sed sint et magnam exercitationem quia. Ullam voluptas nihil vitae dicta molestiae et. Aliquid velit porro vero.'],
-    ['name' => 'Share everything you know', 'description' => 'Mollitia delectus a omnis. Quae velit aliquid. Qui nulla maxime adipisci illo id molestiae. Cumque cum ut minus rerum architecto magnam consequatur. Quia quaerat minima.'],
-    ['name' => 'Always learning', 'description' => 'Aut repellendus et officiis dolor possimus. Deserunt velit quasi sunt fuga error labore quia ipsum. Commodi autem voluptatem nam. Quos voluptatem totam.'],
-    ['name' => 'Be supportive', 'description' => 'Magnam provident veritatis odit. Vitae eligendi repellat non. Eum fugit impedit veritatis ducimus. Non qui aspernatur laudantium modi. Praesentium rerum error deserunt harum.'],
-    ['name' => 'Take responsibility', 'description' => 'Sit minus expedita quam in ullam molestiae dignissimos in harum. Tenetur dolorem iure. Non nesciunt dolorem veniam necessitatibus laboriosam voluptas perspiciatis error.'],
-    ['name' => 'Enjoy downtime', 'description' => 'Ipsa in earum deserunt aut. Quos minus aut animi et soluta. Ipsum dicta ut quia eius. Possimus reprehenderit iste aspernatur ut est velit consequatur distinctio.'],
-];
-
-$team = [
-    ['name' => 'Michael Foster', 'role' => 'Co-Founder / CTO', 'imageUrl' => 'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80'],
-    ['name' => 'Dries Vincent', 'role' => 'Business Relations', 'imageUrl' => 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80'],
-    ['name' => 'Lindsay Walton', 'role' => 'Front-end Developer', 'imageUrl' => 'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80'],
-    ['name' => 'Courtney Henry', 'role' => 'Designer', 'imageUrl' => 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80'],
-    ['name' => 'Tom Cook', 'role' => 'Director of Product', 'imageUrl' => 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80'],
-    ['name' => 'Whitney Francis', 'role' => 'Copywriter', 'imageUrl' => 'https://images.unsplash.com/photo-1517365830460-955ce3ccd263?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80'],
-    ['name' => 'Leonard Krasner', 'role' => 'Senior Designer', 'imageUrl' => 'https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80'],
-    ['name' => 'Floyd Miles', 'role' => 'Principal Designer', 'imageUrl' => 'https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80'],
-    ['name' => 'Emily Selman', 'role' => 'VP, User Experience', 'imageUrl' => 'https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80'],
-    ['name' => 'Kristin Watson', 'role' => 'VP, Human Resources', 'imageUrl' => 'https://images.unsplash.com/photo-1500917293891-ef795e70e1f6?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80'],
-    ['name' => 'Emma Dorsey', 'role' => 'Senior Developer', 'imageUrl' => 'https://images.unsplash.com/photo-1505840717430-882ce147ef2d?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80'],
-    ['name' => 'Alicia Bell', 'role' => 'Junior Copywriter', 'imageUrl' => 'https://images.unsplash.com/photo-1509783236416-c9ad59bae472?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80'],
-];
-
-$blogPosts = [
-    [
-        'id' => 1,
-        'title' => 'Vel expedita assumenda placeat aut nisi optio voluptates quas',
-        'href' => '#',
-        'description' => 'Illo sint voluptas. Error voluptates culpa eligendi. Hic vel totam vitae illo. Non aliquid explicabo necessitatibus unde. Sed exercitationem placeat consectetur nulla deserunt vel. Iusto corrupti dicta.',
-        'imageUrl' => 'https://images.unsplash.com/photo-1496128858413-b36217c2ce36?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3603&q=80',
-        'date' => 'Mar 16, 2020',
-        'datetime' => '2020-03-16',
-        'author' => [
-            'name' => 'Michael Foster',
-            'imageUrl' => 'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-        ],
-    ],
-    [
-        'id' => 2,
-        'title' => 'Libero quisquam voluptatibus nam iusto qui dolor',
-        'href' => '#',
-        'description' => 'Ipsum enim deserunt laborum dolore enim. Ea sit ad dolore reprehenderit officia id. Do mollit irure voluptate minim ullamco id amet sunt Lorem non. Et deserunt esse irure anim. Laboris sunt voluptate aliquip dolor sit voluptate et in enim. Ex sint officia ea veniam dolore occaecat minim. Eu laborum irure officia ad incididunt eiusmod quis eiusmod id reprehenderit cupidatat duis.',
-        'imageUrl' => 'https://images.unsplash.com/photo-1547586696-ea22b4d4235d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3270&q=80',
-        'date' => 'Mar 10, 2020',
-        'datetime' => '2020-03-10',
-        'author' => [
-            'name' => 'Lindsay Walton',
-            'imageUrl' => 'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-        ],
-    ],
-    [
-        'id' => 3,
-        'title' => 'Asperiores mollitia et dolor autem modi sit eius quisquam',
-        'href' => '#',
-        'description' => 'Ea dolore elit exercitation adipisicing do exercitation cillum commodo sit aute nisi. In id proident labore ex nulla incididunt veniam laborum in reprehenderit adipisicing ex laborum. Voluptate labore nostrud ex fugiat duis. Non sunt veniam in proident id et aliquip excepteur ipsum sint irure.',
-        'imageUrl' => 'https://images.unsplash.com/photo-1492724441997-5dc865305da7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3270&q=80',
-        'date' => 'Feb 12, 2020',
-        'datetime' => '2020-02-12',
-        'author' => [
-            'name' => 'Tom Cook',
-            'imageUrl' => 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-        ],
-    ],
-];
-@endphp
-
-<section class="relative isolate -z-10 px-6 text-primaryText lg:px-0">
-    <svg class="absolute inset-x-0 top-0 -z-10 h-[64rem] w-full stroke-onPrimaryBg/20 [mask-image:radial-gradient(32rem_32rem_at_center,white,transparent)]" aria-hidden="true">
-        <defs>
-            <pattern id="1f932ae7-37de-4c0a-a8b0-a6e3b4d44b84" width="200" height="200" x="50%" y="-1" patternUnits="userSpaceOnUse">
-                <path d="M.5 200V.5H200" fill="none" />
-            </pattern>
-        </defs>
-        <svg x="50%" y="-1" class="overflow-visible fill-onPrimaryBg/10">
-            <path d="M-200 0h201v201h-201Z M600 0h201v201h-201Z M-400 600h201v201h-201Z M200 800h201v201h-201Z" stroke-width="0" />
-        </svg>
-        <rect width="100%" height="100%" stroke-width="0" fill="url(#1f932ae7-37de-4c0a-a8b0-a6e3b4d44b84)" />
-    </svg>
-    <div class="absolute left-1/2 right-0 top-0 -z-10 -ml-24 transform-gpu overflow-hidden blur-3xl lg:ml-24 xl:ml-48" aria-hidden="true">
-        <div class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-primary-50 to-primary-500 opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%);"></div>
-    </div>
-    <div class="overflow-hidden">
-        <div class="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-60 lg:px-0 lg:pt-32">
-            <div class="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-7xl lg:items-center">
-                <div class="w-full max-w-xl lg:shrink-0 xl:max-w-2xl">
-                    <h1 class="text-4xl font-bold tracking-tight text-primaryText sm:text-6xl">We're changing the way people connect.</h1>
-                    <p class="relative mt-6 text-lg leading-8 text-primaryText/80 sm:max-w-md lg:max-w-none">Cupidatat minim id magna ipsum sint dolor qui. Sunt sit in quis cupidatat mollit aute velit. Et labore commodo nulla aliqua proident mollit ullamco exercitation tempor. Sint aliqua anim nulla sunt mollit id pariatur in voluptate cillum. Eu voluptate tempor esse minim amet fugiat veniam occaecat aliqua.</p>
-                </div>
-                <div class="mt-14 flex justify-end gap-8 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0">
-                    <div class="ml-auto w-44 flex-none space-y-8 pt-32 sm:ml-0 sm:pt-80 lg:order-last lg:pt-36 xl:order-none xl:pt-80">
-                        <div class="relative">
-                            <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80" alt="" class="aspect-[2/3] w-full rounded-xl bg-primaryBg/5 object-cover shadow-lg">
-                            <div class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-primaryBg/10"></div>
-                        </div>
+    <section class="relative isolate -z-10 px-6 text-primaryText lg:px-0">
+        <div
+            class="absolute left-1/2 right-0 top-0 -z-10 -ml-24 transform-gpu overflow-hidden blur-3xl lg:ml-24 xl:ml-48"
+            aria-hidden="true"
+        >
+            <div
+                class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-primary-50 to-primary-500 opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
+                style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"
+            >
+            </div>
+        </div>
+        <div class="overflow-hidden">
+            <div class="mx-auto max-w-7xl px-6 pb-32 pt-36 sm:pt-60 lg:px-0 lg:pt-32">
+                <div class="mx-auto max-w-2xl gap-x-14 lg:mx-0 lg:flex lg:max-w-7xl lg:items-center">
+                    <div class="w-full max-w-xl lg:shrink-0 xl:max-w-2xl">
+                        <h1 class="text-4xl font-bold tracking-tight text-primaryText sm:text-6xl">
+                            Nossa história:
+                        </h1>
+                        <p class="relative mt-6 text-justify text-lg leading-8 text-primaryText/80 sm:max-w-md lg:max-w-none">
+                            Em meio a um dos momentos mais desafiadores da nossa
+                            geração, nasceu a NERD, um sonho que se tornou realidade em
+                            plena pandemia, no ano de 2020, na cidade de Gurupi,
+                            Tocantins. Foi em um cenário de incertezas que Isabela
+                            Brandão e Amanda Alves decidiram fazer a diferença na vida
+                            de alunos que enfrentavam dificuldades no aprendizado.
+                            <br />
+                            <br />
+                            No início, cada atendimento era feito na casa dos próprios
+                            alunos, um esforço que logo revelou uma necessidade maior:
+                            um espaço onde pudessem acolher mais estudantes e
+                            transformar suas jornadas educacionais. Assim, com apenas
+                            algumas mesas, um quadro e materiais simples, surgiu o
+                            primeiro ambiente da NERD, no fundo de casa, mas carregado
+                            de propósito e dedicação.
+                            <br />
+                            <br />A caminhada não foi fácil, mas a persistência e a
+                            paixão pela educação falaram mais alto. Tijolo por tijolo,
+                            sonho por sonho, Isabela e Amanda construíram o próprio
+                            espaço, um local pensado para impulsionar o aprendizado e
+                            oferecer um ensino acessível e acolhedor. Hoje, a NERD se
+                            orgulha de contar com dois pontos de atendimento em Gurupi,
+                            impactando a vida de muitos alunos e mostrando que a
+                            educação transforma e que nenhum obstáculo é grande demais
+                            para quem acredita no que faz. Aqui, cada conquista dos
+                            nossos alunos é a nossa maior vitória. E seguimos firmes,
+                            crescendo e aprendendo juntos, porque ser NERD é acreditar
+                            no poder do conhecimento!
+                        </p>
                     </div>
-                    <div class="mr-auto w-44 flex-none space-y-8 sm:mr-0 sm:pt-52 lg:pt-36">
-                        <div class="relative">
-                            <img src="https://images.unsplash.com/photo-1485217988980-11786ced9454?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80" alt="" class="aspect-[2/3] w-full rounded-xl bg-primaryBg/5 object-cover shadow-lg">
-                            <div class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-primaryBg/10"></div>
+                    <div class="mt-14 flex justify-end gap-10 sm:-mt-44 sm:justify-start sm:pl-20 lg:mt-0 lg:pl-0">
+                        <div class="mr-auto w-56 flex-none space-y-8 sm:mr-0">
+                            <div class="absolute inset-0 transform overflow-hidden opacity-25 transition-transform duration-1000 ">
+                                <div class="absolute right-32 top-96 h-96 w-96 animate-pulse rounded-full bg-white mix-blend-overlay blur-3xl filter"></div>
+                            </div>
+                            <div class="relative">
+                                <img
+                                    src="{{ asset('images/NerdCEO.JPG') }}"
+                                    alt=""
+                                    class="aspect-[2/3] w-full rounded-xl bg-primaryBg/5 object-cover shadow-lg"
+                                />
+                                <div class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-primaryBg/10"></div>
+                            </div>
+                            <div class="relative">
+                                <img
+                                    src="{{ asset('images/ProfsNerd.jpg') }}"
+                                    alt=""
+                                    class="aspect-[2/3] w-full rounded-xl bg-primaryBg/5 object-cover shadow-lg"
+                                />
+                                <div class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-primaryBg/10"></div>
+                            </div>
                         </div>
-                        <div class="relative">
-                            <img src="https://images.unsplash.com/photo-1559136555-9303baea8ebd?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=focalpoint&fp-x=.4&w=396&h=528&q=80" alt="" class="aspect-[2/3] w-full rounded-xl bg-primaryBg/5 object-cover shadow-lg">
-                            <div class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-primaryBg/10"></div>
-                        </div>
-                    </div>
-                    <div class="w-44 flex-none space-y-8 pt-32 sm:pt-0">
-                        <div class="relative">
-                            <img src="https://images.unsplash.com/photo-1670272504528-790c24957dda?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=left&w=400&h=528&q=80" alt="" class="aspect-[2/3] w-full rounded-xl bg-primaryBg/5 object-cover shadow-lg">
-                            <div class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-primaryBg/10"></div>
-                        </div>
-                        <div class="relative">
-                            <img src="https://images.unsplash.com/photo-1670272505284-8faba1c31f7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&h=528&q=80" alt="" class="aspect-[2/3] w-full rounded-xl bg-primaryBg/5 object-cover shadow-lg">
-                            <div class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-primaryBg/10"></div>
+                        <div class="w-48 flex-none space-y-8">
+                            <div class="relative">
+                                <img
+                                    src="{{ asset('images/ProfsMed.jpg') }}"
+                                    alt=""
+                                    class="mt-44 aspect-[2/3] w-full rounded-xl bg-primaryBg/5 object-cover shadow-lg"
+                                />
+                                <div class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-primaryBg/10"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<section class="mx-auto -mt-12 max-w-7xl px-6 sm:mt-0 lg:px-0 xl:-mt-8">
-    <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
-        <h2 class="text-3xl font-bold tracking-tight text-primaryText sm:text-4xl">Our mission</h2>
-        <div class="mt-6 flex flex-col gap-x-8 gap-y-20 lg:flex-row">
-            <div class="lg:w-full lg:flex-auto">
-                <p class="text-xl leading-8 text-primaryText/80">Aliquet nec orci mattis amet quisque ullamcorper neque, nibh sem. At arcu, sit dui mi, nibh dui, diam eget aliquam. Quisque id at vitae feugiat egestas ac. Diam nulla orci at in viverra scelerisque eget. Eleifend egestas fringilla sapien.</p>
-                <div class="mt-10 max-w-xl text-base leading-7 text-primaryText/70">
-                    <p>Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris semper sed amet vitae sed turpis id. Id dolor praesent donec est. Odio penatibus risus viverra tellus varius sit neque erat velit. Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris semper sed amet vitae sed turpis id.</p>
-                    <p class="mt-10">Et vitae blandit facilisi magna lacus commodo. Vitae sapien duis odio id et. Id blandit molestie auctor fermentum dignissim. Lacus diam tincidunt ac cursus in vel. Mauris varius vulputate et ultrices hac adipiscing egestas. Iaculis convallis ac tempor et ut. Ac lorem vel integer orci.</p>
-                </div>
-            </div>
-            <div class="lg:flex lg:flex-auto lg:justify-center lg:text-right">
-                <dl class="w-64 space-y-8 xl:w-80">
-                    @foreach ($stats as $stat)
-                    <div class="flex flex-col-reverse gap-y-4">
-                        <dt class="text-base leading-7 text-primaryText/80">{{ $stat['label'] }}</dt>
-                        <dd class="text-5xl font-semibold tracking-tight text-primaryText">{{ $stat['value'] }}</dd>
-                    </div>
-                    @endforeach
-                </dl>
-            </div>
+    {{-- Values section --}}
+    <section class="relative isolate -z-10 mx-auto mt-32 max-w-7xl px-6 sm:mt-40 lg:px-0">
+        <div class="mx-auto max-w-2xl lg:mx-0">
+            <h2 class="text-3xl font-bold tracking-tight text-primaryText sm:text-4xl">
+                Os Nossos Valores
+            </h2>
         </div>
-    </div>
-</section>
-
-<section class="mt-32 sm:mt-40 xl:mx-auto xl:max-w-7xl xl:px-0">
-    <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80" alt="" class="aspect-[5/2] w-full object-cover xl:rounded-3xl">
-</section>
-
-<section class="relative isolate -z-10 mx-auto mt-32 max-w-7xl px-6 sm:mt-40 lg:px-0">
-    <div class="absolute inset-x-0 top-1/2 -z-10 flex -translate-y-1/2 justify-center overflow-hidden [mask-image:radial-gradient(50%_45%_at_50%_55%,white,transparent)]">
-        <svg class="h-[40rem] w-[80rem] flex-none stroke-onPrimaryBg/20" aria-hidden="true">
-            <defs>
-                <pattern id="e9033f3e-f665-41a6-84ef-756f6778e6fe" width="200" height="200" x="50%" y="50%" patternUnits="userSpaceOnUse" patternTransform="translate(-100 0)">
-                    <path d="M.5 200V.5H200" fill="none" />
-                </pattern>
-            </defs>
-            <svg x="50%" y="50%" class="overflow-visible fill-onPrimaryBg/10">
-                <path d="M-300 0h201v201h-201Z M300 200h201v201h-201Z" stroke-width="0" />
-            </svg>
-            <rect width="100%" height="100%" stroke-width="0" fill="url(#e9033f3e-f665-41a6-84ef-756f6778e6fe)" />
-        </svg>
-    </div>
-    <div class="mx-auto max-w-2xl lg:mx-0">
-        <h2 class="text-3xl font-bold tracking-tight text-primaryText sm:text-4xl">Our values</h2>
-        <p class="mt-6 text-lg leading-8 text-primaryText/80">Lorem ipsum dolor sit amet consect adipisicing elit. Possimus magnam voluptatum cupiditate veritatis in accusamus quisquam.</p>
-    </div>
-    <dl class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 text-base leading-7 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-        @foreach ($values as $value)
-        <div>
-            <dt class="font-semibold text-primaryText">{{ $value['name'] }}</dt>
-            <dd class="mt-1 text-primaryText/80">{{ $value['description'] }}</dd>
-        </div>
-        @endforeach
-    </dl>
-</section>
-
-<section class="mx-auto mt-32 w-full max-w-7xl px-6 sm:mt-40 lg:px-0">
-    <div class="mx-auto max-w-2xl lg:mx-0">
-        <h2 class="text-3xl font-bold tracking-tight text-primaryText sm:text-4xl">Our team</h2>
-        <p class="mt-6 text-lg leading-8 text-primaryText/80">Sit facilis neque ab nulla vel. Cum eos in laudantium. Temporibus eos totam in dolorum. Nemo vel facere repellendus ut eos dolores similique.</p>
-    </div>
-    <ul role="list" class="mx-auto mt-20 grid max-w-2xl grid-cols-2 gap-x-8 gap-y-16 text-center sm:grid-cols-3 md:grid-cols-4 lg:mx-0 lg:max-w-none lg:grid-cols-5 xl:grid-cols-6">
-        @foreach ($team as $person)
-        <li>
-            <img class="mx-auto h-24 w-24 rounded-full" src="{{ $person['imageUrl'] }}" alt="">
-            <h3 class="mt-6 text-base font-semibold leading-7 tracking-tight text-primaryText">{{ $person['name'] }}</h3>
-            <p class="text-sm leading-6 text-primaryText/80">{{ $person['role'] }}</p>
-        </li>
-        @endforeach
-    </ul>
-</section>
-
-<section class="mx-auto mt-32 max-w-7xl px-6 sm:mt-40 lg:px-0">
-    <div class="mx-auto max-w-2xl lg:mx-0">
-        <h2 class="text-3xl font-bold tracking-tight text-primaryText sm:text-4xl">From the blog</h2>
-        <p class="mt-2 text-lg leading-8 text-primaryText/80">Vel dolorem qui facilis soluta sint aspernatur totam cumque.</p>
-    </div>
-    <div class="mx-auto mt-16 grid max-w-2xl auto-rows-fr grid-cols-1 gap-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-        @foreach ($blogPosts as $post)
-        <article class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-primaryBg px-8 pb-8 pt-80 sm:pt-48 lg:pt-80">
-            <img src="{{ $post['imageUrl'] }}" alt="" class="absolute inset-0 -z-10 h-full w-full object-cover">
-            <div class="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
-            <div class="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-ringColor"></div>
-
-            <div class="flex flex-wrap items-center gap-y-1 overflow-hidden text-sm leading-6 text-gray-300">
-                <time datetime="{{ $post['datetime'] }}" class="mr-8">{{ $post['date'] }}</time>
-                <div class="-ml-4 flex items-center gap-x-4">
-                    <svg viewBox="0 0 2 2" class="-ml-0.5 h-0.5 w-0.5 flex-none fill-white/50">
-                        <circle cx="1" cy="1" r="1" />
-                    </svg>
-                    <div class="flex gap-x-2.5">
-                        <img src="{{ $post['author']['imageUrl'] }}" alt="" class="h-6 w-6 flex-none rounded-full bg-white/10">
-                        {{ $post['author']['name'] }}
-                    </div>
+        <dl class="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 text-base leading-7 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+            @foreach ($values as $value)
+                <div key="{{ $value['name'] }}">
+                    <dt class="font-semibold text-primaryText">{{ $value['name'] }}</dt>
+                    <dd class="mt-1 text-justify text-primaryText/80">
+                        {{ $value['description'] }}
+                    </dd>
                 </div>
-            </div>
-            <h3 class="mt-3 text-lg font-semibold leading-6 text-white">
-                <a href="{{ $post['href'] }}">
-                    <span class="absolute inset-0"></span>
-                    {{ $post['title'] }}
-                </a>
-            </h3>
-        </article>
-        @endforeach
-    </div>
-</section>
+            @endforeach
+        </dl>
+    </section>
 
+    {{-- Image section --}}
+    <section class="mt-32 sm:mt-40 xl:mx-auto xl:max-w-7xl xl:px-0">
+        <img
+            src="{{ asset('images/Nerd2.jpg') }}"
+            alt=""
+            class="aspect-[5/2] w-full object-cover xl:rounded-3xl"
+        />
+    </section>
+
+    {{-- Team section --}}
+    <section class="mx-auto mt-32 w-full max-w-7xl px-6 sm:mt-40 lg:px-0">
+        <div class="mx-auto max-w-7xl ">
+            <h2 class="text-center text-3xl font-bold tracking-tight text-primaryText sm:text-4xl">
+                Fundadoras:
+            </h2>
+            <p class="mx-auto mt-6 max-w-4xl text-justify text-lg leading-8 text-primaryText/80">
+                Conheça as pessoas por trás da NERD, que dedicam seu tempo e
+                esforço para tornar a educação mais acessível e transformadora.
+                Cada uma das fundadoras traz consigo uma história única e uma
+                paixão inabalável pela educação, trabalhando incansavelmente para
+                criar um ambiente acolhedor e inovador.
+            </p>
+        </div>
+        <ul
+            role="list"
+            class="mx-auto mt-20 flex max-w-2xl justify-center gap-x-10 gap-y-16 text-center lg:max-w-none"
+        >
+            @foreach ($team as $person)
+                <li key="{{ $person['name'] }}">
+                    <img
+                        class="mx-auto h-44 w-44 rounded-full object-cover {{ $person['config'] }}"
+                        src="{{ asset($person['imageUrl']) }}"
+                        alt=""
+                    />
+                    <h3 class="mt-6 text-base font-semibold leading-7 tracking-tight text-primaryText">
+                        {{ $person['name'] }}
+                    </h3>
+                    <p class="text-sm leading-6 text-primaryText/80">
+                        {{ $person['role'] }}
+                    </p>
+                </li>
+            @endforeach
+        </ul>
+    </section>
 @endsection

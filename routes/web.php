@@ -23,17 +23,32 @@ Route::get('/contact', function () {
     return view('pages.contact');
 })->name('contact');
 
-// Rotas de Administração para Gerenciamento de Imagens e Módulos
-// Para proteção de segurança, o acesso é limitado por autenticação.
+// Rotas de Autenticação (Aberto)
+Route::get('/login', [\App\Http\Controllers\AuthController::class, 'showLogin'])->name('login');
+Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login']);
+
+// Rotas de Administração protegidas por Autenticação
 // Caso a aplicação exija outro middleware, 'auth' deve ser alterado de acordo.
-Route::prefix('admin/images')->middleware('auth')->name('admin.images.')->group(function () {
-    Route::get('/', [\App\Http\Controllers\ImageController::class, 'index'])->name('index');
+Route::middleware('auth')->prefix('admin')->group(function () {
 
-    // Módulos
-    Route::post('/modules', [\App\Http\Controllers\ImageController::class, 'storeModule'])->name('modules.store');
+    // Rota de Logout
+    Route::post('/logout', [\App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
 
-    // Imagens
-    Route::post('/store', [\App\Http\Controllers\ImageController::class, 'storeImage'])->name('store');
-    Route::put('/{id}', [\App\Http\Controllers\ImageController::class, 'updateImage'])->name('update');
-    Route::delete('/{id}', [\App\Http\Controllers\ImageController::class, 'destroyImage'])->name('destroy');
+    // Gerenciamento de Imagens e Módulos
+    Route::prefix('images')->name('admin.images.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\ImageController::class, 'index'])->name('index');
+        Route::post('/modules', [\App\Http\Controllers\ImageController::class, 'storeModule'])->name('modules.store');
+        Route::post('/store', [\App\Http\Controllers\ImageController::class, 'storeImage'])->name('store');
+        Route::put('/{id}', [\App\Http\Controllers\ImageController::class, 'updateImage'])->name('update');
+        Route::delete('/{id}', [\App\Http\Controllers\ImageController::class, 'destroyImage'])->name('destroy');
+    });
+
+    // Gerenciamento de Usuários
+    Route::prefix('users')->name('admin.users.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\UserController::class, 'index'])->name('index');
+        Route::post('/', [\App\Http\Controllers\UserController::class, 'store'])->name('store');
+        Route::put('/{id}', [\App\Http\Controllers\UserController::class, 'update'])->name('update');
+        Route::delete('/{id}', [\App\Http\Controllers\UserController::class, 'destroy'])->name('destroy');
+    });
+
 });

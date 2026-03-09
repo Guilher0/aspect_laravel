@@ -21,15 +21,35 @@ function initializeButtonToTop() {
     const buttonToTop = document.getElementById('button-to-top');
     if (!buttonToTop) return;
 
+    let isVisible = false;
+    let ticking = false;
+
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 200) {
-            buttonToTop.classList.remove('hidden');
-            setTimeout(() => buttonToTop.style.opacity = '1', 10);
-        } else {
-            buttonToTop.style.opacity = '0';
-            setTimeout(() => buttonToTop.classList.add('hidden'), 300); // Espera a transição terminar
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                const shouldBeVisible = window.scrollY > 200;
+
+                if (shouldBeVisible && !isVisible) {
+                    buttonToTop.classList.remove('hidden');
+                    // Força um reflow para garantir que a transição de opacidade funcione após remover o 'hidden'
+                    void buttonToTop.offsetWidth;
+                    buttonToTop.style.opacity = '1';
+                    isVisible = true;
+                } else if (!shouldBeVisible && isVisible) {
+                    buttonToTop.style.opacity = '0';
+                    setTimeout(() => {
+                        // Verifica se ainda deve estar oculto após a transição
+                        if (!isVisible) {
+                            buttonToTop.classList.add('hidden');
+                        }
+                    }, 300); // Espera a transição terminar
+                    isVisible = false;
+                }
+                ticking = false;
+            });
+            ticking = true;
         }
-    });
+    }, { passive: true });
 
     buttonToTop.addEventListener('click', () => {
         window.scrollTo({

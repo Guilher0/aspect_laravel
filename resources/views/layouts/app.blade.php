@@ -9,6 +9,19 @@
     {{-- Carrega os assets (CSS e JS) processados pelo Vite --}}
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
+    {{-- Script inline para evitar FOUC ao carregar o tema --}}
+    <script>
+        (function() {
+            try {
+                var theme = localStorage.getItem('theme-mode');
+                if (!theme) {
+                    theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                }
+                document.documentElement.classList.add('theme-' + theme);
+            } catch (e) {}
+        })();
+    </script>
+
     {{-- Carrega a fonte Inter do Google Fonts --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

@@ -7,6 +7,7 @@ use App\Models\Module;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Validation\Rule;
 
 class ImageController extends Controller
 {
@@ -26,7 +27,12 @@ class ImageController extends Controller
     public function storeModule(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255|unique:modules',
+            'name' => [
+                'required',
+                'string',
+                'max:255',
+                Rule::unique('modules')->whereNull('deleted_at')
+            ],
         ]);
 
         Module::create([

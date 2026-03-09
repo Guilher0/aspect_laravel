@@ -18,9 +18,10 @@ return new class extends Migration
             $table->longText('base64_data'); // Para salvar as imagens em base64
             $table->string('alt_text')->nullable();
             $table->timestamps();
+            $table->softDeletes();
 
-            // Garantir que a mesma key só existe uma vez por módulo
-            $table->unique(['module_id', 'key']);
+            // Garantir que a mesma key só existe uma vez por módulo, considerando softdeletes
+            $table->unique(['module_id', 'key', 'deleted_at']);
         });
     }
 

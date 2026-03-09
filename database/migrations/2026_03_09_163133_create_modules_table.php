@@ -14,8 +14,12 @@ return new class extends Migration
         Schema::create('modules', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('slug')->unique();
+            $table->string('slug');
             $table->timestamps();
+            $table->softDeletes();
+
+            // Garantir unicidade apenas para registros não deletados
+            $table->unique(['slug', 'deleted_at']);
         });
     }
 

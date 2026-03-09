@@ -160,7 +160,7 @@ $blogPosts = [
 </section>
 
 <section class="mt-32 sm:mt-40 xl:mx-auto xl:max-w-7xl xl:px-0">
-    <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80" alt="" class="aspect-[5/2] w-full object-cover xl:rounded-3xl">
+    <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80" alt="" loading="lazy" class="aspect-[5/2] w-full object-cover xl:rounded-3xl">
 </section>
 
 <section class="relative isolate -z-10 mx-auto mt-32 max-w-7xl px-6 sm:mt-40 lg:px-0">
@@ -199,7 +199,7 @@ $blogPosts = [
     <ul role="list" class="mx-auto mt-20 grid max-w-2xl grid-cols-2 gap-x-8 gap-y-16 text-center sm:grid-cols-3 md:grid-cols-4 lg:mx-0 lg:max-w-none lg:grid-cols-5 xl:grid-cols-6">
         @foreach ($team as $person)
         <li>
-            <img class="mx-auto h-24 w-24 rounded-full" src="{{ $person['imageUrl'] }}" alt="">
+            <img class="mx-auto h-24 w-24 rounded-full" src="{{ $person['imageUrl'] }}" alt="" loading="lazy">
             <h3 class="mt-6 text-base font-semibold leading-7 tracking-tight text-primaryText">{{ $person['name'] }}</h3>
             <p class="text-sm leading-6 text-primaryText/80">{{ $person['role'] }}</p>
         </li>
@@ -215,7 +215,7 @@ $blogPosts = [
     <div class="mx-auto mt-16 grid max-w-2xl auto-rows-fr grid-cols-1 gap-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
         @foreach ($blogPosts as $post)
         <article class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-primaryBg px-8 pb-8 pt-80 sm:pt-48 lg:pt-80">
-            <img src="{{ $post['imageUrl'] }}" alt="" class="absolute inset-0 -z-10 h-full w-full object-cover">
+            <img src="{{ $post['imageUrl'] }}" alt="" loading="lazy" class="absolute inset-0 -z-10 h-full w-full object-cover">
             <div class="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
             <div class="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-ringColor"></div>
 
@@ -226,7 +226,7 @@ $blogPosts = [
                         <circle cx="1" cy="1" r="1" />
                     </svg>
                     <div class="flex gap-x-2.5">
-                        <img src="{{ $post['author']['imageUrl'] }}" alt="" class="h-6 w-6 flex-none rounded-full bg-white/10">
+                        <img src="{{ $post['author']['imageUrl'] }}" alt="" loading="lazy" class="h-6 w-6 flex-none rounded-full bg-white/10">
                         {{ $post['author']['name'] }}
                     </div>
                 </div>

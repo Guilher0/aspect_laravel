@@ -7,12 +7,14 @@
             'title' => 'Aprovados em Medicina em Tocantins',
             'href' => '#',
             'description' => '',
+            'imageKey' => 'stats_aprovados_med_to',
             'imageUrl' => 'images/ProfsMed.jpg',
             'date' => '',
             'datetime' => '2020-03-16',
             'author' => [
                 'name' => 'Professores NERD🧠',
                 'imageUrl' => 'images/1nerd.jpg',
+                'imageKey' => 'stats_aprovados_med_to_author',
             ],
         ],
         [
@@ -20,12 +22,14 @@
             'title' => 'Aprovado em Agronomia no Pará',
             'href' => '#',
             'description' => '',
+            'imageKey' => 'stats_aprovado_agro_pa',
             'imageUrl' => 'images/aluno7.jpg',
             'date' => '',
             'datetime' => '2020-03-16',
             'author' => [
                 'name' => 'Aluno NERD✨',
                 'imageUrl' => 'images/1nerd.jpg',
+                'imageKey' => 'stats_aprovado_agro_pa_author',
             ],
         ],
         [
@@ -33,12 +37,14 @@
             'title' => 'Aprovado em Medicina na ITPAC',
             'href' => '#',
             'description' => '',
+            'imageKey' => 'stats_aprovado_med_itpac',
             'imageUrl' => 'images/aluno1.jpg',
             'date' => 'Mar 10, 2020',
             'datetime' => '2020-03-10',
             'author' => [
                 'name' => 'Aluno NERD✨',
                 'imageUrl' => '',
+                'imageKey' => 'stats_aprovado_med_itpac_author',
             ],
         ],
         [
@@ -46,12 +52,14 @@
             'title' => 'Aprovado em Agronomia na UFT',
             'href' => '#',
             'description' => '',
+            'imageKey' => 'stats_aprovado_agro_uft',
             'imageUrl' => 'images/aluno2.jpg',
             'date' => 'Feb 12, 2020',
             'datetime' => '2020-02-12',
             'author' => [
                 'name' => 'Aluno NERD✨',
                 'imageUrl' => '',
+                'imageKey' => 'stats_aprovado_agro_uft_author',
             ],
         ],
         [
@@ -59,12 +67,14 @@
             'title' => 'Aprovadas em Medicina na UNIRG E UNIRV',
             'href' => '#',
             'description' => '',
+            'imageKey' => 'stats_aprovado_med_unirg_unirv',
             'imageUrl' => 'images/aluno5.jpg',
             'date' => 'Feb 12, 2020',
             'datetime' => '2020-02-12',
             'author' => [
                 'name' => 'Aluno NERD✨',
                 'imageUrl' => '',
+                'imageKey' => 'stats_aprovado_med_unirg_unirv_author',
             ],
         ],
     ];
@@ -87,7 +97,13 @@
     <div class="flex overflow-x-auto gap-8 pb-8 mt-16 snap-x snap-mandatory scroll-smooth hide-scroll-bar">
         @foreach ($blogPosts as $post)
             <article class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-primaryBg px-8 pb-8 pt-80 flex-shrink-0 w-[300px] sm:w-[384px] snap-center hover:scale-[1.02] transition-transform duration-300">
-                <img src="{{ asset($post['imageUrl']) }}" alt="" class="absolute inset-0 -z-10 h-full w-full object-cover">
+                <x-dynamic-image
+                    module="home"
+                    key="{{ $post['imageKey'] }}"
+                    fallback="{{ $post['imageUrl'] }}"
+                    alt="{{ $post['title'] }}"
+                    class="absolute inset-0 -z-10 h-full w-full object-cover"
+                />
                 <div class="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/40"></div>
                 <div class="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-ringColor"></div>
 

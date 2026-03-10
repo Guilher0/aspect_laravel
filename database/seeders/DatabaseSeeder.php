@@ -22,6 +22,10 @@ class DatabaseSeeder extends Seeder
                 'email' => 'admin@admin.com',
                 'password' => Hash::make('password'),
             ]);
+
+            $this->command->info('Usuário criado com sucesso! 👇');
+            $this->command->info('E-mail: admin@admin.com');
+            $this->command->info('Senha: password');
         }
     }
 }

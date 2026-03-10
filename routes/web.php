@@ -5,7 +5,8 @@ use Illuminate\Support\Facades\Route;
 // Rota da Home (placeholder por enquanto)
 Route::get('/', function () {
     // Quando criar a home, será: return view('pages.home');
-    return view('pages.home');
+    $approvals = \App\Models\Approval::all();
+    return view('pages.home', compact('approvals'));
 })->name('home');
 
 // Rota de About APONTANDO PARA A NOVA VIEW
@@ -49,6 +50,14 @@ Route::middleware('auth')->prefix('admin')->group(function () {
         Route::post('/', [\App\Http\Controllers\UserController::class, 'store'])->name('store');
         Route::put('/{id}', [\App\Http\Controllers\UserController::class, 'update'])->name('update');
         Route::delete('/{id}', [\App\Http\Controllers\UserController::class, 'destroy'])->name('destroy');
+    });
+
+    // Gerenciamento de Aprovações
+    Route::prefix('approvals')->name('admin.approvals.')->group(function () {
+        Route::get('/', [\App\Http\Controllers\ApprovalController::class, 'index'])->name('index');
+        Route::post('/', [\App\Http\Controllers\ApprovalController::class, 'store'])->name('store');
+        Route::put('/{id}', [\App\Http\Controllers\ApprovalController::class, 'update'])->name('update');
+        Route::delete('/{id}', [\App\Http\Controllers\ApprovalController::class, 'destroy'])->name('destroy');
     });
 
 });

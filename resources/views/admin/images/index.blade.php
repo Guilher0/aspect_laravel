@@ -7,6 +7,9 @@
     <div class="flex justify-between items-center mb-8">
         <h1 class="text-3xl font-bold text-gray-800">Gerenciador de Imagens</h1>
         <div class="flex space-x-4">
+            <a href="{{ route('admin.approvals.index') }}" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded transition">
+                Aprovações (Home)
+            </a>
             <a href="{{ route('admin.users.index') }}" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded transition">
                 Gerenciar Usuários
             </a>

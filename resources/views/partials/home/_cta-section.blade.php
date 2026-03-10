@@ -1,7 +1,9 @@
 <section class="relative mt-14 py-14 text-justify">
   <div class="relative h-80 overflow-hidden shadow-2xl shadow-white/10 max-[640px]:max-w-full sm:mx-auto md:absolute md:left-0 md:h-96 md:w-1/3 lg:h-full lg:w-1/2">
-    <img
-      src="{{ asset('images/1nerd.jpg') }}"
+    <x-dynamic-image
+      module="home"
+      key="inicio_do_nerd"
+      fallback="images/1nerd.jpg"
       alt="Início do NERD"
       class="absolute inset-0 -z-10 h-full w-full object-cover object-top"
     />

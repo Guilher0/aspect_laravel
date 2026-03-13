@@ -1,6 +1,6 @@
 <section class="relative mt-14 py-14">
   <div class="relative h-80 overflow-hidden bg-indigo-700/50 md:absolute md:left-0 md:h-96 md:w-1/3 lg:w-1/2">
-    <img src="{{ asset('images/thisisengineering-raeng-64YrPKiguAE-unsplash.jpg') }}" alt="Foto de ThisisEngineering RAEng na Unsplash" class="absolute inset-0 -z-10 h-full w-full object-cover">
+    <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1769&q=80" alt="Foto de ThisisEngineering RAEng na Unsplash" loading="lazy" class="absolute inset-0 -z-10 h-full w-full object-cover">
   </div>
   <span class="absolute right-2 text-[0.625rem] text-primaryText md:bottom-10 md:left-0">
     Foto de

@@ -18,7 +18,7 @@
         @forelse ($approvals as $approval)
             <article class="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-primaryBg px-8 pb-8 pt-80 flex-shrink-0 w-[300px] sm:w-[384px] snap-center hover:scale-[1.02] transition-transform duration-300">
                 @if($approval->image_base64)
-                    <img src="{{ str_starts_with($approval->image_base64, 'data:') ? $approval->image_base64 : asset($approval->image_base64) }}" alt="{{ $approval->course }}" class="absolute inset-0 -z-10 h-full w-full object-cover">
+                    <img src="{{ str_starts_with($approval->image_base64, 'data:') ? $approval->image_base64 : asset($approval->image_base64) }}" alt="{{ $approval->course }}" class="absolute inset-0 -z-10 h-full w-full object-cover" loading="lazy">
                 @else
                     <div class="absolute inset-0 -z-10 h-full w-full bg-gray-800"></div>
                 @endif

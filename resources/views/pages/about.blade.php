@@ -111,17 +111,21 @@
                                 <div class="absolute right-32 top-96 h-96 w-96 animate-pulse rounded-full bg-white mix-blend-overlay blur-3xl filter"></div>
                             </div>
                             <div class="relative">
-                                <img
-                                    src="{{ asset('images/NerdCEO.JPG') }}"
-                                    alt=""
+                                <x-dynamic-image
+                                    module="about"
+                                    key="nerd_ceo"
+                                    fallback="images/NerdCEO.JPG"
+                                    alt="Nerd CEO"
                                     class="aspect-[2/3] w-full rounded-xl bg-primaryBg/5 object-cover shadow-lg"
                                 />
                                 <div class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-primaryBg/10"></div>
                             </div>
                             <div class="relative">
-                                <img
-                                    src="{{ asset('images/ProfsNerd.jpg') }}"
-                                    alt=""
+                                <x-dynamic-image
+                                    module="about"
+                                    key="profs_nerd"
+                                    fallback="images/ProfsNerd.jpg"
+                                    alt="Professores Nerd"
                                     class="aspect-[2/3] w-full rounded-xl bg-primaryBg/5 object-cover shadow-lg"
                                 />
                                 <div class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-primaryBg/10"></div>
@@ -129,9 +133,11 @@
                         </div>
                         <div class="w-48 flex-none space-y-8">
                             <div class="relative">
-                                <img
-                                    src="{{ asset('images/ProfsMed.jpg') }}"
-                                    alt=""
+                                <x-dynamic-image
+                                    module="about"
+                                    key="profs_med"
+                                    fallback="images/ProfsMed.jpg"
+                                    alt="Professores Med"
                                     class="mt-44 aspect-[2/3] w-full rounded-xl bg-primaryBg/5 object-cover shadow-lg"
                                 />
                                 <div class="pointer-events-none absolute inset-0 rounded-xl ring-1 ring-inset ring-primaryBg/10"></div>
@@ -164,10 +170,13 @@
 
     {{-- Image section --}}
     <section class="mt-32 sm:mt-40 xl:mx-auto xl:max-w-7xl xl:px-0">
-        <img
-            src="{{ asset('images/Nerd2.jpg') }}"
-            alt=""
+        <x-dynamic-image
+            module="about"
+            key="nerd2"
+            fallback="images/Nerd2.jpg"
+            alt="Nerd 2"
             class="aspect-[5/2] w-full object-cover xl:rounded-3xl"
+            loading="lazy"
         />
     </section>
 
@@ -191,10 +200,13 @@
         >
             @foreach ($team as $person)
                 <li key="{{ $person['name'] }}">
-                    <img
+                    <x-dynamic-image
+                        module="about"
+                        key="team_{{ Str::slug($person['name'], '_') }}"
+                        fallback="{{ $person['imageUrl'] }}"
+                        alt="{{ $person['name'] }}"
                         class="mx-auto h-44 w-44 rounded-full object-cover {{ $person['config'] }}"
-                        src="{{ asset($person['imageUrl']) }}"
-                        alt=""
+                        loading="lazy"
                     />
                     <h3 class="mt-6 text-base font-semibold leading-7 tracking-tight text-primaryText">
                         {{ $person['name'] }}

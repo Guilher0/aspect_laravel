@@ -1,14 +1,14 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
-@section('header')
-    <div class="flex items-center justify-between">
-        <h2 class="text-xl font-semibold leading-tight text-gray-800">
-            {{ __('Gerenciador de Aprovações (Home)') }}
-        </h2>
-    </div>
-@endsection
+@section('title', 'Gerenciar Aprovações')
 
 @section('content')
+    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between mb-6 px-4 sm:px-0">
+            <h2 class="text-2xl font-bold leading-tight text-primaryText">
+                {{ __('Gerenciar Aprovações') }}
+            </h2>
+        </div>
     <div class="py-12">
         <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 space-y-6">
 
@@ -123,7 +123,7 @@
                                             <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm sm:pl-6">
                                                 <div class="h-16 w-24">
                                                     @if($approval->image_base64)
-                                                        <img src="{{ str_starts_with($approval->image_base64, 'data:') ? $approval->image_base64 : asset($approval->image_base64) }}" alt="{{ $approval->student_name }}" class="h-full w-full object-cover rounded">
+                                                        <img src="{{ str_starts_with((string)$approval->image_base64, 'data:') ? $approval->image_base64 : asset($approval->image_base64) }}" alt="{{ $approval->student_name }}" class="h-full w-full object-cover rounded">
                                                     @else
                                                         <span class="text-gray-400 italic">Sem imagem</span>
                                                     @endif
@@ -203,7 +203,7 @@
                                                 <div class="mt-2">
                                                     <p class="text-xs text-gray-500 mb-1">Imagem atual:</p>
                                                     @if($approval->image_base64)
-                                                        <img id="preview_edit_{{ $approval->id }}" src="{{ str_starts_with($approval->image_base64, 'data:') ? $approval->image_base64 : asset($approval->image_base64) }}" class="max-h-24 object-contain border rounded">
+                                                        <img id="preview_edit_{{ $approval->id }}" src="{{ str_starts_with((string)$approval->image_base64, 'data:') ? $approval->image_base64 : asset($approval->image_base64) }}" class="max-h-24 object-contain border rounded">
                                                     @else
                                                         <img id="preview_edit_{{ $approval->id }}" src="" class="max-h-24 object-contain border rounded hidden">
                                                     @endif
@@ -277,4 +277,5 @@
             reader.readAsDataURL(file);
         });
     </script>
+    </div>
 @endsection

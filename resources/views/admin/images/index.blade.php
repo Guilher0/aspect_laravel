@@ -75,9 +75,14 @@
                         </select>
                     </div>
 
-                    <div class="mb-4">
+                    <div class="mb-4 relative">
                         <label for="key" class="block text-gray-700 text-sm font-bold mb-2">Chave (ex: hero_bg, logo_footer)</label>
-                        <input type="text" name="key" id="key" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required placeholder="Apenas letras, números e _">
+                        <input type="text" name="key" id="key" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required placeholder="Apenas letras, números e _" autocomplete="off">
+                        <!-- Dropdown de sugestões -->
+                        <div id="key_suggestions" class="absolute z-10 w-full bg-white mt-1 border border-gray-300 rounded shadow-lg hidden max-h-48 overflow-y-auto">
+                            <!-- Preenchido via JS -->
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1">Dica: Selecione o módulo primeiro para ver as chaves sugeridas para ele.</p>
                     </div>
 
                     <div class="mb-4">
@@ -267,5 +272,83 @@
             modal.classList.add('hidden');
         }
     }
+
+    // Configuração de Sugestões Inteligentes de Chaves (Keys) para facilitar a equipe
+    document.addEventListener('DOMContentLoaded', () => {
+        const keyInput = document.getElementById('key');
+        const moduleSelect = document.getElementById('module_id');
+        const suggestionsDiv = document.getElementById('key_suggestions');
+
+        // Mapeamento das chaves usadas no frontend
+        const suggestedKeysByModule = {
+            'home': [
+                'inicio_do_nerd'
+            ],
+            'about': [
+                'nerd_ceo',
+                'profs_nerd',
+                'profs_med',
+                'nerd2',
+                'team_isabela_brandao',
+                'team_amanda_alves'
+            ],
+            'projects': [
+                'feature_adventure_ready',
+                'feature_minimal_and_clean',
+                'feature_organized'
+            ]
+        };
+
+        if(keyInput && moduleSelect && suggestionsDiv) {
+
+            // Renderiza as sugestões baseadas no módulo
+            function renderSuggestions() {
+                // Pega o slug do módulo (dentro dos parênteses no texto do option)
+                const selectedOption = moduleSelect.options[moduleSelect.selectedIndex];
+                const match = selectedOption ? selectedOption.text.match(/\((.*?)\)/) : null;
+                const moduleSlug = match ? match[1] : '';
+
+                const keys = suggestedKeysByModule[moduleSlug] || [];
+                const filter = keyInput.value.toLowerCase();
+
+                suggestionsDiv.innerHTML = '';
+                let hasVisible = false;
+
+                keys.forEach(key => {
+                    if (key.toLowerCase().includes(filter)) {
+                        const div = document.createElement('div');
+                        div.className = 'px-4 py-2 hover:bg-indigo-50 cursor-pointer text-gray-700 font-mono text-sm border-b last:border-b-0';
+                        div.textContent = key;
+                        div.addEventListener('click', () => {
+                            keyInput.value = key;
+                            suggestionsDiv.classList.add('hidden');
+                        });
+                        suggestionsDiv.appendChild(div);
+                        hasVisible = true;
+                    }
+                });
+
+                if (hasVisible) {
+                    suggestionsDiv.classList.remove('hidden');
+                } else {
+                    suggestionsDiv.classList.add('hidden');
+                }
+            }
+
+            keyInput.addEventListener('focus', renderSuggestions);
+            keyInput.addEventListener('input', renderSuggestions);
+            moduleSelect.addEventListener('change', () => {
+                keyInput.value = '';
+                suggestionsDiv.classList.add('hidden');
+            });
+
+            // Esconder sugestões quando clicar fora
+            document.addEventListener('click', (e) => {
+                if (e.target !== keyInput && !suggestionsDiv.contains(e.target)) {
+                    suggestionsDiv.classList.add('hidden');
+                }
+            });
+        }
+    });
 </script>
 @endsection

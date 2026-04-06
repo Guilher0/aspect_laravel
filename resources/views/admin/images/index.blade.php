@@ -75,14 +75,17 @@
                         </select>
                     </div>
 
-                    <div class="mb-4 relative">
-                        <label for="key" class="block text-gray-700 text-sm font-bold mb-2">Chave (ex: hero_bg, logo_footer)</label>
-                        <input type="text" name="key" id="key" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required placeholder="Apenas letras, números e _" autocomplete="off">
-                        <!-- Dropdown de sugestões -->
-                        <div id="key_suggestions" class="absolute z-10 w-full bg-white mt-1 border border-gray-300 rounded shadow-lg hidden max-h-48 overflow-y-auto">
-                            <!-- Preenchido via JS -->
+                    <div class="mb-4">
+                        <label for="key_select" class="block text-gray-700 text-sm font-bold mb-2">Chave da Imagem</label>
+                        <select id="key_select" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2">
+                            <option value="">Selecione um módulo primeiro...</option>
+                        </select>
+
+                        <div id="custom_key_container" class="hidden">
+                            <label for="key" class="block text-gray-700 text-xs font-bold mb-1">Ou digite uma nova chave:</label>
+                            <input type="text" name="key" id="key" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Apenas letras, números e _" autocomplete="off">
                         </div>
-                        <p class="text-xs text-gray-500 mt-1">Dica: Selecione o módulo primeiro para ver as chaves sugeridas para ele.</p>
+                        <p class="text-xs text-gray-500 mt-1">As opções mudam conforme o módulo selecionado.</p>
                     </div>
 
                     <div class="mb-4">
@@ -273,11 +276,13 @@
         }
     }
 
-    // Configuração de Sugestões Inteligentes de Chaves (Keys) para facilitar a equipe
+    // Lógica para o Select de Chaves e Custom Input
     document.addEventListener('DOMContentLoaded', () => {
-        const keyInput = document.getElementById('key');
         const moduleSelect = document.getElementById('module_id');
-        const suggestionsDiv = document.getElementById('key_suggestions');
+        const keySelect = document.getElementById('key_select');
+        const customKeyContainer = document.getElementById('custom_key_container');
+        const customKeyInput = document.getElementById('key');
+        const formCreateImage = document.getElementById('form_create_image');
 
         // Mapeamento das chaves usadas no frontend
         const suggestedKeysByModule = {
@@ -299,55 +304,64 @@
             ]
         };
 
-        if(keyInput && moduleSelect && suggestionsDiv) {
-
-            // Renderiza as sugestões baseadas no módulo
-            function renderSuggestions() {
-                // Pega o slug do módulo (dentro dos parênteses no texto do option)
+        if(moduleSelect && keySelect) {
+            function updateKeySelect() {
                 const selectedOption = moduleSelect.options[moduleSelect.selectedIndex];
                 const match = selectedOption ? selectedOption.text.match(/\((.*?)\)/) : null;
                 const moduleSlug = match ? match[1] : '';
 
                 const keys = suggestedKeysByModule[moduleSlug] || [];
-                const filter = keyInput.value.toLowerCase();
 
-                suggestionsDiv.innerHTML = '';
-                let hasVisible = false;
+                // Limpa o select
+                keySelect.innerHTML = '<option value="">Selecione uma chave...</option>';
 
+                // Popula com as opções do módulo
                 keys.forEach(key => {
-                    if (key.toLowerCase().includes(filter)) {
-                        const div = document.createElement('div');
-                        div.className = 'px-4 py-2 hover:bg-indigo-50 cursor-pointer text-gray-700 font-mono text-sm border-b last:border-b-0';
-                        div.textContent = key;
-                        div.addEventListener('click', () => {
-                            keyInput.value = key;
-                            suggestionsDiv.classList.add('hidden');
-                        });
-                        suggestionsDiv.appendChild(div);
-                        hasVisible = true;
-                    }
+                    const option = document.createElement('option');
+                    option.value = key;
+                    option.textContent = key;
+                    keySelect.appendChild(option);
                 });
 
-                if (hasVisible) {
-                    suggestionsDiv.classList.remove('hidden');
+                // Adiciona opção customizada
+                const customOption = document.createElement('option');
+                customOption.value = 'custom';
+                customOption.textContent = 'Outra (Digitar nova chave)';
+                keySelect.appendChild(customOption);
+
+                // Reseta a interface
+                customKeyContainer.classList.add('hidden');
+                customKeyInput.removeAttribute('required');
+                if (keys.length > 0) {
+                    keySelect.selectedIndex = 1; // Seleciona a primeira chave real
                 } else {
-                    suggestionsDiv.classList.add('hidden');
+                    keySelect.value = 'custom';
+                }
+                triggerCustomKeyLogic();
+            }
+
+            function triggerCustomKeyLogic() {
+                if(keySelect.value === 'custom') {
+                    customKeyContainer.classList.remove('hidden');
+                    customKeyInput.setAttribute('required', 'required');
+                    customKeyInput.setAttribute('name', 'key');
+                    keySelect.removeAttribute('name');
+                } else {
+                    customKeyContainer.classList.add('hidden');
+                    customKeyInput.removeAttribute('required');
+                    customKeyInput.removeAttribute('name');
+                    keySelect.setAttribute('name', 'key');
                 }
             }
 
-            keyInput.addEventListener('focus', renderSuggestions);
-            keyInput.addEventListener('input', renderSuggestions);
-            moduleSelect.addEventListener('change', () => {
-                keyInput.value = '';
-                suggestionsDiv.classList.add('hidden');
-            });
+            // Listeners
+            moduleSelect.addEventListener('change', updateKeySelect);
+            keySelect.addEventListener('change', triggerCustomKeyLogic);
 
-            // Esconder sugestões quando clicar fora
-            document.addEventListener('click', (e) => {
-                if (e.target !== keyInput && !suggestionsDiv.contains(e.target)) {
-                    suggestionsDiv.classList.add('hidden');
-                }
-            });
+            // Inicializa as opções se já tiver um módulo selecionado ao carregar
+            if(moduleSelect.options.length > 0) {
+                updateKeySelect();
+            }
         }
     });
 </script>

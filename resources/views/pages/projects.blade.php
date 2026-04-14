@@ -73,6 +73,7 @@ $features = [
               <img
                 src="{{ $feature['imageSrc'] }}"
                 alt="{{ $feature['imageAlt'] }}"
+                loading="lazy"
                 class="object-cover object-center"
                 width="800"
                 height="320"

@@ -19,11 +19,11 @@
                 Explore conteúdos exclusivos e expanda seus horizontes com a nosso ensino. Conhecimento ao seu alcance,
                 de forma simples e acessível.</p>
             <div class="mt-10 flex items-center justify-center gap-x-6">
-                <a href="#"
+                <a href="{{ route('projects') }}"
                     class="rounded-md bg-primary-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500">
                     Click here
                 </a>
-                <a href="#" class="text-sm font-semibold leading-6 text-primaryText">
+                <a href="{{ route('about') }}" class="text-sm font-semibold leading-6 text-primaryText">
                     Learn more <span aria-hidden="true">→</span>
                 </a>
             </div>

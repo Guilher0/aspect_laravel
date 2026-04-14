@@ -6,6 +6,7 @@
       fallback="images/1nerd.jpg"
       alt="Início do NERD"
       class="absolute inset-0 -z-10 h-full w-full object-cover object-top"
+      loading="lazy"
     />
   </div>
   <div class="relative mt-14 flex h-80 md:mt-0 md:h-96 lg:px-8">

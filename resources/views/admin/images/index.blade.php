@@ -76,8 +76,16 @@
                     </div>
 
                     <div class="mb-4">
-                        <label for="key" class="block text-gray-700 text-sm font-bold mb-2">Chave (ex: hero_bg, logo_footer)</label>
-                        <input type="text" name="key" id="key" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required placeholder="Apenas letras, números e _">
+                        <label for="key_select" class="block text-gray-700 text-sm font-bold mb-2">Chave da Imagem</label>
+                        <select id="key_select" class="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-2">
+                            <option value="">Selecione um módulo primeiro...</option>
+                        </select>
+
+                        <div id="custom_key_container" class="hidden">
+                            <label for="key" class="block text-gray-700 text-xs font-bold mb-1">Ou digite uma nova chave:</label>
+                            <input type="text" name="key" id="key" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Apenas letras, números e _" autocomplete="off">
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1">As opções mudam conforme o módulo selecionado.</p>
                     </div>
 
                     <div class="mb-4">
@@ -267,5 +275,94 @@
             modal.classList.add('hidden');
         }
     }
+
+    // Lógica para o Select de Chaves e Custom Input
+    document.addEventListener('DOMContentLoaded', () => {
+        const moduleSelect = document.getElementById('module_id');
+        const keySelect = document.getElementById('key_select');
+        const customKeyContainer = document.getElementById('custom_key_container');
+        const customKeyInput = document.getElementById('key');
+        const formCreateImage = document.getElementById('form_create_image');
+
+        // Mapeamento das chaves usadas no frontend
+        const suggestedKeysByModule = {
+            'home': [
+                'inicio_do_nerd'
+            ],
+            'about': [
+                'nerd_ceo',
+                'profs_nerd',
+                'profs_med',
+                'nerd2',
+                'team_isabela_brandao',
+                'team_amanda_alves'
+            ],
+            'projects': [
+                'feature_adventure_ready',
+                'feature_minimal_and_clean',
+                'feature_organized'
+            ]
+        };
+
+        if(moduleSelect && keySelect) {
+            function updateKeySelect() {
+                const selectedOption = moduleSelect.options[moduleSelect.selectedIndex];
+                const match = selectedOption ? selectedOption.text.match(/\((.*?)\)/) : null;
+                const moduleSlug = match ? match[1] : '';
+
+                const keys = suggestedKeysByModule[moduleSlug] || [];
+
+                // Limpa o select
+                keySelect.innerHTML = '<option value="">Selecione uma chave...</option>';
+
+                // Popula com as opções do módulo
+                keys.forEach(key => {
+                    const option = document.createElement('option');
+                    option.value = key;
+                    option.textContent = key;
+                    keySelect.appendChild(option);
+                });
+
+                // Adiciona opção customizada
+                const customOption = document.createElement('option');
+                customOption.value = 'custom';
+                customOption.textContent = 'Outra (Digitar nova chave)';
+                keySelect.appendChild(customOption);
+
+                // Reseta a interface
+                customKeyContainer.classList.add('hidden');
+                customKeyInput.removeAttribute('required');
+                if (keys.length > 0) {
+                    keySelect.selectedIndex = 1; // Seleciona a primeira chave real
+                } else {
+                    keySelect.value = 'custom';
+                }
+                triggerCustomKeyLogic();
+            }
+
+            function triggerCustomKeyLogic() {
+                if(keySelect.value === 'custom') {
+                    customKeyContainer.classList.remove('hidden');
+                    customKeyInput.setAttribute('required', 'required');
+                    customKeyInput.setAttribute('name', 'key');
+                    keySelect.removeAttribute('name');
+                } else {
+                    customKeyContainer.classList.add('hidden');
+                    customKeyInput.removeAttribute('required');
+                    customKeyInput.removeAttribute('name');
+                    keySelect.setAttribute('name', 'key');
+                }
+            }
+
+            // Listeners
+            moduleSelect.addEventListener('change', updateKeySelect);
+            keySelect.addEventListener('change', triggerCustomKeyLogic);
+
+            // Inicializa as opções se já tiver um módulo selecionado ao carregar
+            if(moduleSelect.options.length > 0) {
+                updateKeySelect();
+            }
+        }
+    });
 </script>
 @endsection

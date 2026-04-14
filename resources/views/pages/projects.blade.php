@@ -69,11 +69,14 @@ $features = [
           </div>
           <div class="flex-auto lg:col-span-7 xl:col-span-8">
             <div class="aspect-h-2 aspect-w-5 overflow-hidden rounded-lg">
-              {{-- Substituição do componente Image do Next.js por uma tag <img> padrão do HTML --}}
-              <img
-                src="{{ $feature['imageSrc'] }}"
+              {{-- Substituição do componente Image do Next.js por uma tag x-dynamic-image para imagens dinâmicas --}}
+              <x-dynamic-image
+                module="projects"
+                key="feature_{{ Str::slug($feature['name'], '_') }}"
+                fallback="{{ $feature['imageSrc'] }}"
                 alt="{{ $feature['imageAlt'] }}"
                 class="object-cover object-center"
+                loading="lazy"
                 width="800"
                 height="320"
               />

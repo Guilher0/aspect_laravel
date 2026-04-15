@@ -64,7 +64,7 @@
             @if($modules->isEmpty())
                 <p class="text-gray-500 italic">Crie um módulo primeiro para adicionar imagens.</p>
             @else
-                <form action="{{ route('admin.images.store') }}" method="POST" id="form_create_image">
+                <form action="{{ route('admin.images.store') }}" method="POST" enctype="multipart/form-data" id="form_create_image">
                     @csrf
                     <div class="mb-4">
                         <label for="module_id" class="block text-gray-700 text-sm font-bold mb-2">Módulo</label>
@@ -95,11 +95,8 @@
 
                     <div class="mb-4">
                         <label for="file_input" class="block text-gray-700 text-sm font-bold mb-2">Selecionar Imagem</label>
-                        <input type="file" id="file_input" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" required>
+                        <input type="file" name="image" id="file_input" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" required>
                     </div>
-
-                    <!-- Input Oculto para o Base64 -->
-                    <input type="hidden" name="base64_data" id="base64_data">
 
                     <!-- Preview -->
                     <div class="mb-4 hidden" id="preview_container">
@@ -132,7 +129,7 @@
                     @foreach($module->images as $image)
                         <div class="bg-white border rounded-lg overflow-hidden shadow-sm flex flex-col">
                             <div class="h-40 bg-gray-200 flex items-center justify-center p-2 relative group">
-                                <img src="{{ $image->base64_data }}" alt="{{ $image->alt_text }}" class="max-h-full max-w-full object-contain">
+                                <img src="{{ Storage::url($image->path) }}" alt="{{ $image->alt_text }}" class="max-h-full max-w-full object-contain">
                                 <div class="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-200">
                                     <button onclick='editImage({{ $image->id }}, @json($image->alt_text))' class="text-white bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-sm mr-2">Editar</button>
                                 </div>
@@ -160,14 +157,13 @@
                         <div id="modal_edit_{{ $image->id }}" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center p-4">
                             <div class="bg-white rounded-lg p-6 w-full max-w-md">
                                 <h3 class="text-lg font-bold mb-4">Editar Imagem: {{ $image->key }}</h3>
-                                <form action="{{ route('admin.images.update', $image->id) }}" method="POST">
+                                <form action="{{ route('admin.images.update', $image->id) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     @method('PUT')
 
                                     <div class="mb-4">
                                         <label class="block text-gray-700 text-sm font-bold mb-2">Novo Arquivo (opcional)</label>
-                                        <input type="file" id="file_edit_{{ $image->id }}" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
-                                        <input type="hidden" name="base64_data" id="base64_edit_{{ $image->id }}">
+                                        <input type="file" name="image" id="file_edit_{{ $image->id }}" accept="image/*" class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
                                     </div>
 
                                     <div class="mb-4 hidden" id="preview_edit_container_{{ $image->id }}">
@@ -211,7 +207,6 @@
 
     // Lógica do formulário de criação
     const fileInput = document.getElementById('file_input');
-    const base64Data = document.getElementById('base64_data');
     const previewContainer = document.getElementById('preview_container');
     const imagePreview = document.getElementById('image_preview');
 
@@ -221,15 +216,12 @@
             if (file) {
                 try {
                     const base64 = await getBase64(file);
-                    base64Data.value = base64;
                     imagePreview.src = base64;
                     previewContainer.classList.remove('hidden');
                 } catch (error) {
-                    console.error("Erro ao converter imagem: ", error);
-                    alert("Erro ao processar a imagem.");
+                    console.error("Erro ao carregar preview da imagem: ", error);
                 }
             } else {
-                base64Data.value = '';
                 previewContainer.classList.add('hidden');
             }
         });
@@ -242,7 +234,6 @@
             modal.classList.remove('hidden');
 
             const fileEditInput = document.getElementById(`file_edit_${id}`);
-            const base64EditData = document.getElementById(`base64_edit_${id}`);
             const previewEditContainer = document.getElementById(`preview_edit_container_${id}`);
             const previewEdit = document.getElementById(`preview_edit_${id}`);
 
@@ -253,14 +244,12 @@
                     if (file) {
                         try {
                             const base64 = await getBase64(file);
-                            base64EditData.value = base64;
                             previewEdit.src = base64;
                             previewEditContainer.classList.remove('hidden');
                         } catch (error) {
-                            console.error("Erro ao converter imagem: ", error);
+                            console.error("Erro ao carregar preview da imagem: ", error);
                         }
                     } else {
-                        base64EditData.value = '';
                         previewEditContainer.classList.add('hidden');
                     }
                 });

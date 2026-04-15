@@ -7,6 +7,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 
 class DynamicImage extends Component
 {
@@ -51,7 +52,7 @@ class DynamicImage extends Component
             return null;
         });
 
-        $src = $imageData ? $imageData->base64_data : asset($this->fallback);
+        $src = ($imageData && $imageData->path) ? Storage::url($imageData->path) : asset($this->fallback);
         $altText = ($imageData && $imageData->alt_text) ? $imageData->alt_text : $this->alt;
 
         return view('components.dynamic-image', [

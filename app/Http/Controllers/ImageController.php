@@ -7,6 +7,7 @@ use App\Models\Module;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
 class ImageController extends Controller
@@ -51,7 +52,7 @@ class ImageController extends Controller
         $request->validate([
             'module_id' => 'required|exists:modules,id',
             'key' => 'required|string|max:255',
-            'base64_data' => 'required|string',
+            'image' => 'required|image|max:5120', // Máx 5MB
             'alt_text' => 'nullable|string|max:255',
         ]);
 
@@ -64,7 +65,14 @@ class ImageController extends Controller
             return back()->with('error', 'Uma imagem com essa chave já existe neste módulo.');
         }
 
-        $image = Image::create($request->all());
+        $path = $request->file('image')->store('dynamic_images', 'public');
+
+        $image = Image::create([
+            'module_id' => $request->module_id,
+            'key' => $request->key,
+            'path' => $path,
+            'alt_text' => $request->alt_text,
+        ]);
 
         $module = Module::find($request->module_id);
         if ($module) {
@@ -82,12 +90,15 @@ class ImageController extends Controller
         $image = Image::with('module')->findOrFail($id);
 
         $request->validate([
-            'base64_data' => 'nullable|string',
+            'image' => 'nullable|image|max:5120',
             'alt_text' => 'nullable|string|max:255',
         ]);
 
-        if ($request->filled('base64_data')) {
-            $image->base64_data = $request->base64_data;
+        if ($request->hasFile('image')) {
+            if ($image->path && Storage::disk('public')->exists($image->path)) {
+                Storage::disk('public')->delete($image->path);
+            }
+            $image->path = $request->file('image')->store('dynamic_images', 'public');
         }
 
         $image->alt_text = $request->alt_text;
@@ -108,6 +119,10 @@ class ImageController extends Controller
         $image = Image::with('module')->findOrFail($id);
         $module = $image->module;
         $key = $image->key;
+
+        if ($image->path && Storage::disk('public')->exists($image->path)) {
+            Storage::disk('public')->delete($image->path);
+        }
 
         $image->delete();
 

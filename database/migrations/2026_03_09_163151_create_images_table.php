@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('module_id')->constrained()->onDelete('cascade');
             $table->string('key'); // e.g., 'hero_background', 'partner_logo_1'
-            $table->longText('base64_data'); // Para salvar as imagens em base64
+            $table->string('path'); // Para salvar as imagens no storage
             $table->string('alt_text')->nullable();
             $table->timestamps();
             $table->softDeletes();

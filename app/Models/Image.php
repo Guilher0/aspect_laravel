@@ -13,7 +13,7 @@ class Image extends Model
     protected $fillable = [
         'module_id',
         'key',
-        'base64_data',
+        'path',
         'alt_text',
     ];
 

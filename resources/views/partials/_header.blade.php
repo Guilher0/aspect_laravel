@@ -212,7 +212,7 @@
         <nav class="hidden lg:flex lg:items-center lg:gap-4 sm:gap-10">
             @foreach ($navItems as $item)
                 <a href="{{ $item['href'] }}"
-                    class="flex items-center gap-2 font-semibold text-primaryText hover:text-primaryTextHover @if (Request::is(ltrim(parse_url($item['href'], PHP_URL_PATH), '/'))) text-primary-400 @endif">
+                    class="flex items-center gap-2 font-semibold text-primaryText hover:text-primaryTextHover @if (request()->routeIs($item['id'])) text-primary-400 @endif">
                     {{ $item['label'] }}
                 </a>
             @endforeach
@@ -270,7 +270,7 @@
                                 <nav class="flex flex-col gap-5">
                                     @foreach ($navItems as $item)
                                         <a href="{{ $item['href'] }}"
-                                            class="flex items-center gap-2 font-semibold text-primaryText hover:text-primaryTextHover text-lg @if (Request::is(ltrim(parse_url($item['href'], PHP_URL_PATH), '/'))) text-primary-400 @endif">
+                                            class="flex items-center gap-2 font-semibold text-primaryText hover:text-primaryTextHover text-lg @if (request()->routeIs($item['id'])) text-primary-400 @endif">
                                             {{ $item['label'] }}
                                         </a>
                                     @endforeach

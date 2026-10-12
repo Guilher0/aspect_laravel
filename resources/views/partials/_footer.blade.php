@@ -1,13 +1,3 @@
-@php
-    // Mesmos itens do menu, mas serão renderizados com estilo diferente
-    $navItems = [
-        ['id' => 'home', 'label' => 'Home', 'href' => route('home'), 'order' => 0],
-        ['id' => 'about', 'label' => 'About', 'href' => route('about'), 'order' => 1],
-        ['id' => 'projects', 'label' => 'Projects', 'href' => route('projects'), 'order' => 2],
-        ['id' => 'contact', 'label' => 'Contact', 'href' => route('contact'), 'order' => 3],
-    ];
-@endphp
-
 <footer class="mx-auto mt-24 w-full max-w-7xl overflow-hidden border-t border-onPrimaryBg/10 px-6 pb-10 pt-8" aria-labelledby="footer-heading">
     <h2 id="footer-heading" class="sr-only">Footer</h2>
     <nav class="flex items-center justify-center gap-5 sm:gap-10" aria-label="Footer">

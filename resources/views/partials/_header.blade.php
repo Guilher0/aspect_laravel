@@ -1,13 +1,3 @@
-@php
-    // Itens do menu, extraídos de app/components/NavMenu/items.ts
-    $navItems = [
-        ['id' => 'home', 'label' => 'Home', 'href' => route('home'), 'order' => 0],
-        ['id' => 'about', 'label' => 'About', 'href' => route('about'), 'order' => 1],
-        ['id' => 'projects', 'label' => 'Projects', 'href' => route('projects'), 'order' => 2],
-        ['id' => 'contact', 'label' => 'Contact', 'href' => route('contact'), 'order' => 3],
-    ];
-@endphp
-
 <header class="absolute top-0 z-10 flex h-24 w-full items-center justify-center px-2 lg:max-w-7xl lg:px-0">
     <div class="container flex items-center justify-between">
         <a href="{{ route('home') }}">
@@ -212,7 +202,7 @@
         <nav class="hidden lg:flex lg:items-center lg:gap-4 sm:gap-10">
             @foreach ($navItems as $item)
                 <a href="{{ $item['href'] }}"
-                    class="flex items-center gap-2 font-semibold text-primaryText hover:text-primaryTextHover @if (Request::is(ltrim(parse_url($item['href'], PHP_URL_PATH), '/'))) text-primary-400 @endif">
+                    class="flex items-center gap-2 font-semibold text-primaryText hover:text-primaryTextHover @if (request()->routeIs($item['id'])) text-primary-400 @endif">
                     {{ $item['label'] }}
                 </a>
             @endforeach
@@ -270,7 +260,7 @@
                                 <nav class="flex flex-col gap-5">
                                     @foreach ($navItems as $item)
                                         <a href="{{ $item['href'] }}"
-                                            class="flex items-center gap-2 font-semibold text-primaryText hover:text-primaryTextHover text-lg @if (Request::is(ltrim(parse_url($item['href'], PHP_URL_PATH), '/'))) text-primary-400 @endif">
+                                            class="flex items-center gap-2 font-semibold text-primaryText hover:text-primaryTextHover text-lg @if (request()->routeIs($item['id'])) text-primary-400 @endif">
                                             {{ $item['label'] }}
                                         </a>
                                     @endforeach
